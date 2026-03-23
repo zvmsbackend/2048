@@ -1,0 +1,9 @@
+import {
+  "moonbitlang/core/strconv",
+  "moonbitlang/core/json",
+  "moonbitlang/core/random",
+}
+
+options(
+  link: { "js": { "exports": [ "i18n", "start_game" ] } },
+)

@@ -1,0 +1,130 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "sennenki/2048"
+
+import {
+  "moonbitlang/core/json",
+}
+
+// Values
+pub fn entrypoint() -> Unit
+
+pub fn i18n(String) -> String
+
+pub fn init_i18n_messages() -> Unit
+
+pub fn install_night_mode_handler() -> Unit
+
+// Errors
+
+// Types and methods
+pub(all) struct ActuatorMetadata {
+  score : Int
+  best_score : Int
+  terminated : Bool
+  over : Bool
+  won : Bool
+  keep_playing : Bool
+}
+
+#external
+pub type Any
+pub fn[T] Any::from(T) -> Self
+pub fn[T] Any::to(Self) -> T
+pub fn Any::undefined() -> Self
+
+#external
+pub type Event
+pub fn Event::prevent_default(Self) -> Unit
+
+type GameManager
+pub fn GameManager::new(Int) -> Self
+
+pub(all) struct GameState {
+  grid : Grid
+  score : Int
+  over : Bool
+  won : Bool
+  keep_playing : Bool
+}
+pub impl ToJson for GameState
+pub impl @json.FromJson for GameState
+
+type Grid
+pub fn Grid::available_cells(Self) -> Iter[Position]
+pub fn Grid::cell_available(Self, Position) -> Bool
+pub fn Grid::cell_content(Self, Position) -> Tile?
+pub fn Grid::cell_occupied(Self, Position) -> Bool
+pub fn Grid::cells_available(Self) -> Bool
+pub fn Grid::copy(Self) -> Self
+pub fn Grid::each_cell(Self) -> Iter[Tile?]
+pub fn Grid::insert_tile(Self, Tile) -> Unit
+pub fn Grid::new(Int) -> Self
+pub fn Grid::random_available_cell(Self) -> Position?
+pub fn Grid::remove_tile(Self, Position) -> Unit
+pub fn Grid::within_bounds(Self, Position) -> Bool
+pub impl ToJson for Grid
+pub impl @json.FromJson for Grid
+
+type HtmlActuator
+pub fn HtmlActuator::actuate(Self, Grid, ActuatorMetadata) -> Unit
+pub fn HtmlActuator::add_tile(Self, Tile, Bool) -> Unit
+pub fn HtmlActuator::continue_game(Self) -> Unit
+pub fn HtmlActuator::new() -> Self
+pub fn HtmlActuator::prompt_restart(Self) -> Unit
+pub fn HtmlActuator::prompt_undo(Self) -> Unit
+
+type KeyboardInputManager
+pub fn KeyboardInputManager::emit(Self, String, data? : Any) -> Unit
+pub fn KeyboardInputManager::keep_playing(Self, Event) -> Unit
+pub fn KeyboardInputManager::listen(Self) -> Unit
+pub fn KeyboardInputManager::new() -> Self
+pub fn KeyboardInputManager::on(Self, String, (Any) -> Unit) -> Unit
+pub fn KeyboardInputManager::restart(Self, Event) -> Unit
+pub fn KeyboardInputManager::restart_with_confirmation(Self, Event) -> Unit
+pub fn KeyboardInputManager::undo_move(Self, Event) -> Unit
+pub fn KeyboardInputManager::undo_with_confirmation(Self, Event) -> Unit
+
+type LocalStorageManager
+pub fn LocalStorageManager::clear_game_state(Self) -> Unit
+pub fn LocalStorageManager::get_best_score(Self) -> Int
+pub fn LocalStorageManager::get_game_state(Self) -> GameState?
+pub fn LocalStorageManager::get_length_of_game_states_stack(Self) -> Int
+pub fn LocalStorageManager::new() -> Self
+pub fn LocalStorageManager::pop_game_state(Self) -> GameState?
+pub fn LocalStorageManager::push_game_state(Self, GameState) -> Unit
+pub fn LocalStorageManager::set_best_score(Self, Int) -> Unit
+pub fn LocalStorageManager::set_game_state(Self, GameState) -> Unit
+
+#external
+pub type Nullable[T]
+pub fn[T] Nullable::is_null(Self[T]) -> Bool
+pub fn[T] Nullable::to_option(Self[T]) -> T?
+pub fn[T] Nullable::unwrap(Self[T]) -> T
+
+pub struct Position {
+  x : Int
+  y : Int
+}
+pub fn Position::new(Int, Int) -> Self
+pub impl Eq for Position
+pub impl ToJson for Position
+pub impl @json.FromJson for Position
+
+pub struct Tile {
+  mut pos : Position
+  value : Int
+  mut previous_pos : Position?
+  mut merged_from : Array[Tile]?
+}
+pub fn Tile::clear_merge(Self) -> Unit
+pub fn Tile::new(Position, Int, merged_from? : Array[Self]) -> Self
+pub fn Tile::save_position(Self) -> Unit
+pub fn Tile::serialize(Self) -> Json
+pub fn Tile::update_position(Self, Position) -> Unit
+pub impl ToJson for Tile
+pub impl @json.FromJson for Tile
+
+// Type aliases
+
+// Traits
+
