@@ -222,11 +222,17 @@ fn HtmlActuator::update_score(self : HtmlActuator, score : Int) -> Unit {
 }
 
 ///|
+extern "js" fn to_fixed(n : Double, fraction_digits : Int) -> String =
+  #|(n, fractionDigits) => n.toFixed(fractionDigits)
+
+///|
 fn HtmlActuator::update_best_score(
   self : HtmlActuator,
   best_score : Int,
 ) -> Unit {
-  self.best_container.set_text_content(best_score.to_string())
+  self.best_container.set_text_content(
+    to_fixed(best_score.to_double() * 1.33, 2),
+  )
 }
 
 ///|

@@ -3,7 +3,7 @@ let messages : Map[String, String] = {}
 
 ///|
 let default_messages : Map[String, String] = {
-  "intro": "Join the tiles!",
+  "intro": "Join the MLs!",
   "new_game": "New Game",
   "undo": "Undo",
   "keep_going": "Keep Going",
@@ -36,7 +36,7 @@ pub fn init_i18n_messages() -> Unit {
   let localized_messages = match lang {
     "cn" =>
       {
-        "intro": "合并数字，得到 <strong>2048!</strong>",
+        "intro": "合并ML，得到 <strong>兔头!</strong>",
         "new_game": "新游戏",
         "undo": "撤销",
         "keep_going": "继续游戏",
