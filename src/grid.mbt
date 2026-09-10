@@ -14,7 +14,7 @@ fn empty_cells(size : Int) -> FixedArray[FixedArray[Tile?]] {
 
 ///|
 pub fn Grid::new(size : Int) -> Grid {
-  { size, cells: empty_cells(size) }
+  { size, cells: empty_cells(size), }
 }
 
 ///|
@@ -22,7 +22,7 @@ pub fn Grid::copy(grid : Grid) -> Grid {
   let cells = FixedArray::makei(grid.size, i => {
     FixedArray::makei(grid.size, j => grid.cells[i][j])
   })
-  { size: grid.size, cells }
+  { size: grid.size, cells, }
 }
 
 ///|
@@ -42,7 +42,7 @@ pub fn Grid::available_cells(self : Grid) -> Iter[Position] {
     .until(self.size)
     .filter_map(y => {
       if self.cells[x][y] is None {
-        Some({ x, y })
+        Some({ x, y, })
       } else {
         None
       }

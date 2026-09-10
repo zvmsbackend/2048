@@ -225,7 +225,7 @@ fn GameManager::move_(self : GameManager, direction : Direction) -> Unit {
   self.prepare_tiles()
   for x in traversals.0 {
     for y in traversals.1 {
-      let cell = { x, y }
+      let cell = { x, y, }
       if self.grid.cell_content(cell) is Some(tile) {
         let positions = self.find_farthest_position(cell, vector)
         if self.grid.cell_content(positions.next) is Some(next) &&
@@ -272,12 +272,12 @@ fn GameManager::find_farthest_position(
   cell : Position,
   vector : (Int, Int),
 ) -> Positions {
-  for previous = cell, cell = { x: cell.x + vector.0, y: cell.y + vector.1 }
+  for previous = cell, cell = { x: cell.x + vector.0, y: cell.y + vector.1, }
       self.grid.within_bounds(cell) && self.grid.cell_available(cell)
-      previous = cell, cell = { x: cell.x + vector.0, y: cell.y + vector.1 } {
+      previous = cell, cell = { x: cell.x + vector.0, y: cell.y + vector.1, } {
 
   } nobreak {
-    { farthest: previous, next: cell }
+    { farthest: previous, next: cell, }
   }
 }
 
@@ -290,10 +290,10 @@ fn GameManager::moves_available(self : GameManager) -> Bool {
 fn GameManager::tile_matches_available(self : GameManager) -> Bool {
   for x in 0..<self.size {
     for y in 0..<self.size {
-      if self.grid.cell_content({ x, y }) is Some(tile) {
+      if self.grid.cell_content({ x, y, }) is Some(tile) {
         for direction in [Up, Right] {
           let (dx, dy) = direction.get_vector()
-          let cell = { x: x + dx, y: y + dy }
+          let cell = { x: x + dx, y: y + dy, }
           if self.grid.cell_content(cell) is Some(other) &&
             other.value == tile.value {
             return true

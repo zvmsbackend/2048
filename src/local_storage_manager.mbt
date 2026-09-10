@@ -1,8 +1,8 @@
 ///|
 priv trait Storage {
-  set_item(Self, String, String) -> Unit
-  get_item(Self, String) -> String?
-  remove_item(Self, String) -> Unit
+  fn set_item(Self, String, String) -> Unit
+  fn get_item(Self, String) -> String?
+  fn remove_item(Self, String) -> Unit
 }
 
 ///|
@@ -22,7 +22,7 @@ extern "js" fn LocalStorage::set_item_ffi(
   #|(self, id, val) => self.setItem(id, val)
 
 ///|
-impl Storage for LocalStorage with set_item(self, id, val) {
+impl Storage for LocalStorage with fn set_item(self, id, val) {
   self.set_item_ffi(id, val)
 }
 
@@ -34,7 +34,7 @@ extern "js" fn LocalStorage::get_item_ffi(
   #|(self, id) => self.getItem(id)
 
 ///|
-impl Storage for LocalStorage with get_item(self, id) {
+impl Storage for LocalStorage with fn get_item(self, id) {
   self.get_item_ffi(id).to_option()
 }
 
@@ -46,7 +46,7 @@ extern "js" fn LocalStorage::remove_item_ffi(
   #|(self, id) => self.removeItem(id)
 
 ///|
-impl Storage for LocalStorage with remove_item(self, id) {
+impl Storage for LocalStorage with fn remove_item(self, id) {
   self.remove_item_ffi(id)
 }
 
@@ -57,21 +57,21 @@ priv struct FakeStorage {
 
 ///|
 fn FakeStorage::new() -> FakeStorage {
-  { data: {} }
+  { data: {}, }
 }
 
 ///|
-impl Storage for FakeStorage with set_item(self, id, val) {
+impl Storage for FakeStorage with fn set_item(self, id, val) {
   self.data[id] = val
 }
 
 ///|
-impl Storage for FakeStorage with get_item(self, id) {
+impl Storage for FakeStorage with fn get_item(self, id) {
   self.data.get(id)
 }
 
 ///|
-impl Storage for FakeStorage with remove_item(self, id) {
+impl Storage for FakeStorage with fn remove_item(self, id) {
   self.data.remove(id)
 }
 
@@ -113,7 +113,7 @@ pub fn LocalStorageManager::new() -> LocalStorageManager {
 ///|
 pub fn LocalStorageManager::get_best_score(self : LocalStorageManager) -> Int {
   (self.storage.get_item(self.best_score_key).unwrap_or("0")
-  |> @strconv.parse_int) catch {
+  |> @string.parse_int) catch {
     _ => 0
   }
 }

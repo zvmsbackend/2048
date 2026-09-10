@@ -1,5 +1,5 @@
 ///|
-let messages : Map[String, String] = {}
+let messages : Map[String, String] = Map([])
 
 ///|
 let default_messages : Map[String, String] = {

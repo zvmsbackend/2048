@@ -6,7 +6,7 @@ pub struct Position {
 
 ///|
 pub fn Position::new(x : Int, y : Int) -> Position {
-  { x, y }
+  { x, y, }
 }
 
 ///|
@@ -23,7 +23,7 @@ pub fn Tile::new(
   value : Int,
   merged_from? : Array[Tile],
 ) -> Tile {
-  { pos, value, previous_pos: None, merged_from }
+  { pos, value, previous_pos: None, merged_from, }
 }
 
 ///|
@@ -47,12 +47,12 @@ pub fn Tile::clear_merge(self : Tile) -> Unit {
 }
 
 ///|
-pub impl ToJson for Tile with to_json(self) {
+pub impl ToJson for Tile with fn to_json(self) {
   { "pos": self.pos.to_json(), "value": self.value.to_json() }
 }
 
 ///|
-pub impl FromJson for Tile with from_json(json, path) {
+pub impl FromJson for Tile with fn from_json(json, path) {
   match json {
     { "pos": pos, "value": value, .. } =>
       {

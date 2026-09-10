@@ -194,12 +194,12 @@ pub fn HtmlActuator::add_tile(
 
 ///|
 fn normalize_position(pos : Position) -> Position {
-  { x: pos.x + 1, y: pos.y + 1 }
+  { x: pos.x + 1, y: pos.y + 1, }
 }
 
 ///|
 fn position_class(pos : Position) -> String {
-  let { x, y } = normalize_position(pos)
+  let { x, y, } = normalize_position(pos)
   "tile-position-\{x}-\{y}"
 }
 

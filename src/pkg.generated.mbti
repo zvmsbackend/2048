@@ -6,13 +6,13 @@ import {
 }
 
 // Values
-pub fn entrypoint() -> Unit
-
 pub fn i18n(String) -> String
 
 pub fn init_i18n_messages() -> Unit
 
 pub fn install_night_mode_handler() -> Unit
+
+pub fn start_game(Int, Int) -> Unit
 
 // Errors
 
@@ -37,7 +37,7 @@ pub type Event
 pub fn Event::prevent_default(Self) -> Unit
 
 type GameManager
-pub fn GameManager::new(Int) -> Self
+pub fn GameManager::new(Int, Int) -> Self
 
 pub(all) struct GameState {
   grid : Grid
@@ -45,11 +45,9 @@ pub(all) struct GameState {
   over : Bool
   won : Bool
   keep_playing : Bool
-}
-pub impl ToJson for GameState
-pub impl @json.FromJson for GameState
+} derive(ToJson, @json.FromJson)
 
-type Grid
+type Grid derive(ToJson, @json.FromJson)
 pub fn Grid::available_cells(Self) -> Iter[Position]
 pub fn Grid::cell_available(Self, Position) -> Bool
 pub fn Grid::cell_content(Self, Position) -> Tile?
@@ -62,8 +60,6 @@ pub fn Grid::new(Int) -> Self
 pub fn Grid::random_available_cell(Self) -> Position?
 pub fn Grid::remove_tile(Self, Position) -> Unit
 pub fn Grid::within_bounds(Self, Position) -> Bool
-pub impl ToJson for Grid
-pub impl @json.FromJson for Grid
 
 type HtmlActuator
 pub fn HtmlActuator::actuate(Self, Grid, ActuatorMetadata) -> Unit
@@ -75,14 +71,9 @@ pub fn HtmlActuator::prompt_undo(Self) -> Unit
 
 type KeyboardInputManager
 pub fn KeyboardInputManager::emit(Self, String, data? : Any) -> Unit
-pub fn KeyboardInputManager::keep_playing(Self, Event) -> Unit
 pub fn KeyboardInputManager::listen(Self) -> Unit
 pub fn KeyboardInputManager::new() -> Self
 pub fn KeyboardInputManager::on(Self, String, (Any) -> Unit) -> Unit
-pub fn KeyboardInputManager::restart(Self, Event) -> Unit
-pub fn KeyboardInputManager::restart_with_confirmation(Self, Event) -> Unit
-pub fn KeyboardInputManager::undo_move(Self, Event) -> Unit
-pub fn KeyboardInputManager::undo_with_confirmation(Self, Event) -> Unit
 
 type LocalStorageManager
 pub fn LocalStorageManager::clear_game_state(Self) -> Unit
@@ -104,11 +95,8 @@ pub fn[T] Nullable::unwrap(Self[T]) -> T
 pub struct Position {
   x : Int
   y : Int
-}
+} derive(Eq, ToJson, @json.FromJson)
 pub fn Position::new(Int, Int) -> Self
-pub impl Eq for Position
-pub impl ToJson for Position
-pub impl @json.FromJson for Position
 
 pub struct Tile {
   mut pos : Position
@@ -127,4 +115,3 @@ pub impl @json.FromJson for Tile
 // Type aliases
 
 // Traits
-
